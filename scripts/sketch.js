@@ -58,11 +58,16 @@ const settings = {
 
 
 function preload() {
+    // sova
     utils["Shock Dart"] = loadImage('../../assets/utility/shock_dart.png');
     utils["Recon Bolt"] = loadImage('../../assets/utility/recon_bolt.png');
+    // cypher
     utils["Spycam"] = loadImage('../../assets/utility/spycam.png');
     utils["Trapwire"] = loadImage('../../assets/utility/trapwire.png');
     utils["Cyber Cage"] = loadImage('../../assets/utility/cyber_cage.png');
+    // brimstone
+    utils["Sky Smoke"] = loadImage('../../assets/utility/sky_smoke.png');
+    utils["Incendiary"] = loadImage('../../assets/utility/incendiary.png');
 
     loadMaps();
 }
