@@ -72,8 +72,50 @@ for (let a of agents) {
 }
 
 // util guide box
-const utilGuide = document.querySelector('.util-guide');
+const utilGuide = document.querySelector('.util-guides');
+const guideSelect = document.querySelector('.guide-select');
+const guidesBox = document.querySelector('.guide-box');
+let displayingGuide = false;
+let guideDisplayed = 1;
+
+function switchImage(path) {
+    if (displayingGuide) {
+        if (guideDisplayed == 1) {
+            guidesBox.firstChild.classList.add('hidden');
+            guidesBox.lastChild.classList.remove('hidden');
+            guidesBox.firstChild.src = "";
+            guidesBox.lastChild.src = path;
+            guideDisplayed = !guideDisplayed;
+        } else {
+            guidesBox.firstChild.classList.remove('hidden');
+            guidesBox.lastChild.classList.add('hidden');
+            guidesBox.firstChild.src = path;
+            guidesBox.lastChild.src = "";
+            guideDisplayed = !guideDisplayed;
+        }
+    } else {
+        guidesBox.firstChild.classList.remove('hidden');
+        guidesBox.firstChild.src = path;
+        displayingGuide = true;
+    }
+}
+
+function makeGuideSelector(path) {
+    const radio = document.createElement('input');
+    radio.type = "radio";
+    radio.name = "guide";
+    radio.addEventListener('click', () => {
+        utilGuide.classList.remove('hidden');
+        switchImage(path);
+    });
+    return radio;
+}
 
 
-
+// remove all child nodes of a HTML node
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
 

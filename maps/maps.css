@@ -241,8 +241,9 @@
 }
 
 
+
 /* util guide */
-.util-guide {
+/* .util-guide {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -250,7 +251,69 @@
     background: #3C679A;
     padding: .5rem 0 0 .5rem;
     border-radius: .5rem 0 0 0;
+} */
+
+.util-guides {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
+
+.guide-box {
+    position: relative;
+    height: 100%;
+}
+
+.guide-box > img {
+    height: 100%;
+    padding: .5rem 0 0 .5rem;
+    background: #3C679A;
+}
+
+.guide-select {
+    width: 2.5rem;
+    height: 100%;
+    background: #335985;
+}
+
+.guide-select > input {
+    position: relative;
+    display: grid;
+    place-items: center;
+    margin: .75rem auto;
+    appearance: none;
+    border-radius: 0;
+    padding: .75rem;
+    background: #A8A8A8;
+}
+
+.guide-select > input:checked {
+    background: #D75757;
+}
+
+.guide-select > input::before {
+    position: absolute;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+.guide-select > input:nth-child(1)::before {
+    content: '1';
+}
+
+.guide-select > input:nth-child(2):before {
+    content: '2';
+}
+
+
+
+
+
 
 .hidden {
     display: none;

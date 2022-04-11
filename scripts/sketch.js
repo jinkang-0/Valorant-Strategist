@@ -13,9 +13,53 @@ let zoomRef;
 let utils = {};
 let selectedUtil;
 
+
+const settings = {
+    "Astra": {
+        "utils": ["Nova Pulse", "Nebula", "Gravity Well"],
+        "Nova Pulse": false,
+        "Nebula": true,
+        "Gravity Well": false
+    },
+    "Brimstone": {
+        "utils": ["Incendiary", "Sky Smoke"],
+        "Incendiary": false,
+        "Sky Smoke": true
+    },
+    "Cypher": {
+        "utils": ["Trapwire", "Cyber Cage", "Spycam"],
+        "Trapwire": true,
+        "Cyber Cage": false,
+        "Spycam": true
+    },
+    "KAY/O": {
+        "utils": ["FRAG/MENT", "ZERO/POINT"],
+        "FRAG/MENT": false,
+        "ZERO/POINT": true
+    },
+    "Killjoy": {
+        "utils": ["Nanoswarm", "Alarmbot", "Turret"],
+        "Nanoswarm": false,
+        "Alarmbot": true,
+        "Turret": false
+    },
+    "Sova": {
+        "utils": ["Shock Dart", "Recon Bolt"],
+        "Shock Dart": false,
+        "Recon Bolt": true
+    },
+    "Viper": {
+        "utils": ["Snake Bite", "Poison Cloud", "Toxic Screen"],
+        "Snake Bite": true,
+        "Poison Cloud": false,
+        "Toxic Screen": false
+    }
+}
+
+
 function preload() {
-    utils["shock"] = loadImage('../../assets/utility/shock_dart.png');
-    utils["recon"] = loadImage('../../assets/utility/recon_bolt.png');
+    utils["Shock Dart"] = loadImage('../../assets/utility/shock_dart.png');
+    utils["Recon Bolt"] = loadImage('../../assets/utility/recon_bolt.png');
     utils["Spycam"] = loadImage('../../assets/utility/spycam.png');
     utils["Trapwire"] = loadImage('../../assets/utility/trapwire.png');
     utils["Cyber Cage"] = loadImage('../../assets/utility/cyber_cage.png');
@@ -104,7 +148,6 @@ function mouseReleased() {
         for (let u of setups[selectedAgent]) {
             if (side != u.side || (settings[selectedAgent] && !settings[selectedAgent][u["util"]]))
                 continue;
-
             const [x, y] = relativeToGlobal(imagePos.x + u['x'], imagePos.y + u['y']);
             const d = dist(x, y, mouseX, mouseY);
             if (d < recordDist) {
@@ -114,11 +157,28 @@ function mouseReleased() {
         }
 
         // print util
-        if (recordDist < 15) {
+        if (recordDist < 15*zoom) {
             // print(recordUtil['x'], recordUtil['y']);
             selectedUtil = recordUtil;
             utilGuide.classList.remove('hidden');
-            utilGuide.src = selectedUtil['guide'];
+            switchImage(selectedUtil['guide']);
+
+            // if there are alternative locations
+            if (selectedUtil['alternatives']) {
+                // update radio buttons
+                removeAllChildNodes(guideSelect);
+                for (let i = 0; i < selectedUtil['alternatives'].length + 1; i++) {
+                    let radio = (i == 0)? makeGuideSelector(selectedUtil['guide']) : makeGuideSelector(selectedUtil['alternatives'][i-1]);
+                    guideSelect.appendChild(radio);
+                }
+                guideSelect.firstChild.checked = true;
+
+                // show selection menu 
+                guideSelect.classList.remove('hidden');
+            } else {
+                // otherwise, hide selection menu
+                guideSelect.classList.add('hidden');
+            }
         }
     }
 
